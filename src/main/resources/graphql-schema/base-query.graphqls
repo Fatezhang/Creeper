@@ -1,0 +1,9 @@
+type Query {
+    recentFoods(name: String): [Food]
+}
+
+type Food {
+    name: String
+    kal: Int
+    expireDate: String
+}
