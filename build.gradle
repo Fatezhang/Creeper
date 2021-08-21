@@ -1,29 +1,31 @@
 plugins {
     id 'org.springframework.boot' version '2.5.3'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id "io.freefair.lombok" version "5.3.3.3"
     id 'java'
+    id "io.freefair.lombok" version "6.1.0"
 }
 
-group = 'com.demo.graphql'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+project(":") {
+    group = 'com.demo.graphql'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '11'
 
-repositories {
-    mavenCentral()
-}
+    repositories {
+        mavenCentral()
+    }
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'com.graphql-java-kickstart:graphql-spring-boot-starter:11.1.0'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.jsoup:jsoup:1.14.2'
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'com.graphql-java-kickstart:graphql-spring-boot-starter:11.1.0'
+        implementation 'org.springframework.boot:spring-boot-starter-validation'
+        implementation 'org.jsoup:jsoup:1.14.2'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-}
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    }
 
-test {
-    useJUnitPlatform()
+    test {
+        useJUnitPlatform()
+    }
 }
