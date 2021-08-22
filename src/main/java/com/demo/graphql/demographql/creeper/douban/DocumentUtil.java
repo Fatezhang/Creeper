@@ -23,12 +23,6 @@ public class DocumentUtil {
     }
 
     public static Document getDocumentWithRetry(String url) {
-        System.setProperty("http.maxRedirects", "50");
-        System.getProperties().setProperty("proxySet", "true");
-        // 如果不设置，只要代理IP和代理端口正确,此项不设置也可以
-        String ip = "11.184.192.49";
-        System.getProperties().setProperty("http.proxyHost", ip);
-        System.getProperties().setProperty("http.proxyPort", "80");
         Document document = null;
         var retryTimes = 0;
         while (true) {
@@ -36,6 +30,8 @@ public class DocumentUtil {
                 break;
             }
             try {
+                Thread.sleep(5000);
+                log.info("Waited 5s to get document from {}", url);
                 document = Jsoup.connect(url)
                         .cookies(cookieToMap())
                         .header("Referer", "https://www.douban.com/")

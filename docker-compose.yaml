@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+  app:
+    image: gradle:7.1.1-jdk11
+    working_dir: /app
+    volumes:
+      - .:/app
+      - gradle-cache:/home/gradle/.gradle
+    command: gradle runMain

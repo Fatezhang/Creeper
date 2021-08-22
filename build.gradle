@@ -2,7 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.5.3'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
-    id "io.freefair.lombok" version "6.1.0"
+    id 'io.freefair.lombok' version '6.1.0'
 }
 
 project(":") {
@@ -27,5 +27,10 @@ project(":") {
 
     test {
         useJUnitPlatform()
+    }
+
+    task runMain(type: JavaExec) {
+        classpath = sourceSets.main.runtimeClasspath
+        mainClass = 'com.demo.graphql.demographql.creeper.douban.DoubanCreeper'
     }
 }

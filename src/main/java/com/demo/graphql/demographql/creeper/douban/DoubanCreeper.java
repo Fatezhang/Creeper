@@ -47,37 +47,37 @@ public class DoubanCreeper {
         var watchedMovieList = new ConcurrentLinkedQueue<WatchedMovie>();
         var pageStep = 30;
         var currentPageStart = 0;
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i < 61; i++) {
             final var urlPerPage = format(WATCHED_MOVIES_URL, PERSON_ID, currentPageStart);
             final var document = getDocumentWithRetry(urlPerPage);
             if (document == null) {
                 continue;
             }
             final var title = document.title();
-            POOL_EXECUTOR.execute(() -> {
+//            POOL_EXECUTOR.execute(() -> {
 
-                var listViews = document.select(".list-view li");
-                if (listViews.size() == 0) {
-                    return;
-                }
-                log.info("Getting 【 {} 】data from page-[{}], {} movies", title, urlPerPage, listViews.size());
-                for (var itemView : listViews) {
-                    try {
-                        var watchedMovie = getWatchedMovie(itemView);
-                        watchedMovieList.add(watchedMovie);
-                        Thread.sleep(20000);
-                        log.info("Waited 20 seconds, added movie info for {}", watchedMovie.getMovie().getName());
-                    } catch (IOException | InterruptedException e) {
-                        log.info("Get watched movie failed..., error: {}", e.getLocalizedMessage());
-                    }
-                }
-            });
-            try {
-                log.info("Finished to create thread to get data for page-{} ,waiting 5 seconds", i + 1);
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            var listViews = document.select(".list-view li");
+            if (listViews.size() == 0) {
+                break;
             }
+            log.info("Getting 【 {} 】data from page-[{}], {} movies", title, i + 1, listViews.size());
+            for (var itemView : listViews) {
+                try {
+                    var watchedMovie = getWatchedMovie(itemView);
+                    watchedMovieList.add(watchedMovie);
+//                    Thread.sleep(20000);
+//                    log.info("Waited 20 seconds, added movie info for {}", watchedMovie.getMovie().getName());
+                } catch (IOException e) {
+                    log.info("Get watched movie failed..., error: {}", e.getLocalizedMessage());
+                }
+            }
+//            });
+//            try {
+//                log.info("Finished to create thread to get data for page-{} ,waiting 5 seconds", i + 1);
+//                Thread.sleep(5000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
             currentPageStart += pageStep;
         }
 
