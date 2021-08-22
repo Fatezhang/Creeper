@@ -8,3 +8,6 @@ services:
       - .:/app
       - gradle-cache:/home/gradle/.gradle
     command: gradle runMain
+
+volumes:
+  gradle-cache:
